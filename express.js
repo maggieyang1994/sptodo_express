@@ -2,11 +2,13 @@ var express = require('express');
 var cors = require("cors");
 var app = express();
 var axios = require("axios")
+var bodyParser = require("body-parser")
 app.use(cors());
+app.use(bodyParser.json())
 let url = 'http://vop.baidu.com/pro_api';
 
-app.post('/image2Text', async function(req, res){
-  let {auth, fileSize, fileContent} = req.query;
+app.post('/voice2Text', async function(req, res){
+  let {auth, fileSize, fileContent} = req.body;
   let param = {
     "dev_pid": 80001,
     "format":'pcm',
@@ -23,6 +25,7 @@ app.post('/image2Text', async function(req, res){
       'Content-Type': "application/json"
     }
   });
+  console.log(result)
   res.send(result.data).end()
 });
 
